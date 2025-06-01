@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="92bb2b10271240b981c5058aeb8dc51e" Name="Diagram1">
+        <EntityTypeShape EntityType="ELEKTRIKModel.ABONE" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="ELEKTRIKModel.SAYAC" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="ELEKTRIKModel.TUKETIM" Width="1.5" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="ELEKTRIKModel.FK__SAYAC__ABONENO__398D8EEE" />
+        <AssociationConnector Association="ELEKTRIKModel.FK__TUKETIM__SAYACNO__3C69FB99" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

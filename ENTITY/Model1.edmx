@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ELEKTRIKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ABONE">
+          <Key>
+            <PropertyRef Name="ABONEID" />
+          </Key>
+          <Property Name="ABONEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AD" Type="nvarchar" MaxLength="250" />
+          <Property Name="SOYAD" Type="nvarchar" MaxLength="250" />
+          <Property Name="TCKIMLIK" Type="nchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="SAYAC">
+          <Key>
+            <PropertyRef Name="SAYACID" />
+          </Key>
+          <Property Name="SAYACID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ABONENO" Type="int" />
+          <Property Name="MARKA" Type="nvarchar" MaxLength="50" />
+          <Property Name="SERI" Type="nvarchar" MaxLength="10" />
+          <Property Name="NUMARA" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TUKETIM">
+          <Key>
+            <PropertyRef Name="TUKETIMID" />
+          </Key>
+          <Property Name="TUKETIMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SAYACNO" Type="int" />
+          <Property Name="TARIH" Type="datetime" />
+          <Property Name="ENDEKS" Type="int" />
+          <Property Name="TUKETIM" Type="int" />
+        </EntityType>
+        <Association Name="FK__SAYAC__ABONENO__398D8EEE">
+          <End Role="ABONE" Type="Self.ABONE" Multiplicity="0..1" />
+          <End Role="SAYAC" Type="Self.SAYAC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ABONE">
+              <PropertyRef Name="ABONEID" />
+            </Principal>
+            <Dependent Role="SAYAC">
+              <PropertyRef Name="ABONENO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TUKETIM__SAYACNO__3C69FB99">
+          <End Role="SAYAC" Type="Self.SAYAC" Multiplicity="0..1" />
+          <End Role="TUKETIM" Type="Self.TUKETIM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SAYAC">
+              <PropertyRef Name="SAYACID" />
+            </Principal>
+            <Dependent Role="TUKETIM">
+              <PropertyRef Name="SAYACNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spAboneAra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Kelime" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spAboneDoldur" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spAboneKaydet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AD" Type="nvarchar" Mode="In" />
+          <Parameter Name="SOYAD" Type="nvarchar" Mode="In" />
+          <Parameter Name="TC" Type="nchar" Mode="In" />
+          <Parameter Name="MARKA" Type="nvarchar" Mode="In" />
+          <Parameter Name="SERI" Type="nvarchar" Mode="In" />
+          <Parameter Name="NUMARA" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="spTuketimDoldur" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ABONENO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTuketimEkle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ENDEKS" Type="int" Mode="In" />
+          <Parameter Name="SAYACNO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTuketimHesapla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ELEKTRIKModelStoreContainer">
+          <EntitySet Name="ABONE" EntityType="Self.ABONE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SAYAC" EntityType="Self.SAYAC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUKETIM" EntityType="Self.TUKETIM" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__SAYAC__ABONENO__398D8EEE" Association="Self.FK__SAYAC__ABONENO__398D8EEE">
+            <End Role="ABONE" EntitySet="ABONE" />
+            <End Role="SAYAC" EntitySet="SAYAC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TUKETIM__SAYACNO__3C69FB99" Association="Self.FK__TUKETIM__SAYACNO__3C69FB99">
+            <End Role="SAYAC" EntitySet="SAYAC" />
+            <End Role="TUKETIM" EntitySet="TUKETIM" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ELEKTRIKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ELEKTRIKEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="spAboneDoldur" ReturnType="Collection(ELEKTRIKModel.spAboneDoldur_Result)" />
+          <FunctionImport Name="spAboneKaydet">
+            <Parameter Name="AD" Mode="In" Type="String" />
+            <Parameter Name="SOYAD" Mode="In" Type="String" />
+            <Parameter Name="TC" Mode="In" Type="String" />
+            <Parameter Name="MARKA" Mode="In" Type="String" />
+            <Parameter Name="SERI" Mode="In" Type="String" />
+            <Parameter Name="NUMARA" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spTuketimDoldur" ReturnType="Collection(ELEKTRIKModel.spTuketimDoldur_Result)">
+          <Parameter Name="ABONENO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTuketimEkle">
+            <Parameter Name="ENDEKS" Mode="In" Type="Int32" />
+            <Parameter Name="SAYACNO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTuketimHesapla" />
+          <FunctionImport Name="spAboneAra" ReturnType="Collection(ELEKTRIKModel.spAboneAra_Result)">
+          <Parameter Name="Kelime" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ABONE" EntityType="ELEKTRIKModel.ABONE" />
+          <EntitySet Name="SAYAC" EntityType="ELEKTRIKModel.SAYAC" />
+          <EntitySet Name="TUKETIM" EntityType="ELEKTRIKModel.TUKETIM" />
+          <AssociationSet Name="FK__SAYAC__ABONENO__398D8EEE" Association="ELEKTRIKModel.FK__SAYAC__ABONENO__398D8EEE">
+            <End Role="ABONE" EntitySet="ABONE" />
+            <End Role="SAYAC" EntitySet="SAYAC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TUKETIM__SAYACNO__3C69FB99" Association="ELEKTRIKModel.FK__TUKETIM__SAYACNO__3C69FB99">
+            <End Role="SAYAC" EntitySet="SAYAC" />
+            <End Role="TUKETIM" EntitySet="TUKETIM" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="spAboneDoldur_Result">
+          <Property Type="Int32" Name="ABONEID" Nullable="false" />
+          <Property Type="String" Name="AD" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="SOYAD" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TCKIMLIK" Nullable="true" MaxLength="11" />
+        </ComplexType>
+        <ComplexType Name="spTuketimDoldur_Result">
+          <Property Type="Int32" Name="SAYACID" Nullable="false" />
+          <Property Type="String" Name="MARKA" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SERI" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="NUMARA" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="TARIH" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ENDEKS" Nullable="true" />
+          <Property Type="Int32" Name="TUKETIM" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spAboneAra_Result">
+          <Property Type="Int32" Name="ABONEID" Nullable="false" />
+          <Property Type="String" Name="AD" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="SOYAD" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TCKIMLIK" Nullable="true" MaxLength="11" />
+        </ComplexType>
+        <EntityType Name="ABONE">
+          <Key>
+            <PropertyRef Name="ABONEID" />
+          </Key>
+          <Property Name="ABONEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AD" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SOYAD" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TCKIMLIK" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SAYAC" Relationship="ELEKTRIKModel.FK__SAYAC__ABONENO__398D8EEE" FromRole="ABONE" ToRole="SAYAC" />
+        </EntityType>
+        <EntityType Name="SAYAC">
+          <Key>
+            <PropertyRef Name="SAYACID" />
+          </Key>
+          <Property Name="SAYACID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ABONENO" Type="Int32" />
+          <Property Name="MARKA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SERI" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NUMARA" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ABONE" Relationship="ELEKTRIKModel.FK__SAYAC__ABONENO__398D8EEE" FromRole="SAYAC" ToRole="ABONE" />
+          <NavigationProperty Name="TUKETIM" Relationship="ELEKTRIKModel.FK__TUKETIM__SAYACNO__3C69FB99" FromRole="SAYAC" ToRole="TUKETIM" />
+        </EntityType>
+        <EntityType Name="TUKETIM">
+          <Key>
+            <PropertyRef Name="TUKETIMID" />
+          </Key>
+          <Property Name="TUKETIMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SAYACNO" Type="Int32" />
+          <Property Name="TARIH" Type="DateTime" Precision="3" />
+          <Property Name="ENDEKS" Type="Int32" />
+          <Property Name="TUKETIM1" Type="Int32" />
+          <NavigationProperty Name="SAYAC" Relationship="ELEKTRIKModel.FK__TUKETIM__SAYACNO__3C69FB99" FromRole="TUKETIM" ToRole="SAYAC" />
+        </EntityType>
+        <Association Name="FK__SAYAC__ABONENO__398D8EEE">
+          <End Type="ELEKTRIKModel.ABONE" Role="ABONE" Multiplicity="0..1" />
+          <End Type="ELEKTRIKModel.SAYAC" Role="SAYAC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ABONE">
+              <PropertyRef Name="ABONEID" />
+            </Principal>
+            <Dependent Role="SAYAC">
+              <PropertyRef Name="ABONENO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TUKETIM__SAYACNO__3C69FB99">
+          <End Type="ELEKTRIKModel.SAYAC" Role="SAYAC" Multiplicity="0..1" />
+          <End Type="ELEKTRIKModel.TUKETIM" Role="TUKETIM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SAYAC">
+              <PropertyRef Name="SAYACID" />
+            </Principal>
+            <Dependent Role="TUKETIM">
+              <PropertyRef Name="SAYACNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ELEKTRIKModelStoreContainer" CdmEntityContainer="ELEKTRIKEntities">
+          <FunctionImportMapping FunctionImportName="spAboneDoldur" FunctionName="ELEKTRIKModel.Store.spAboneDoldur">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ELEKTRIKModel.spAboneDoldur_Result">
+                <ScalarProperty Name="ABONEID" ColumnName="ABONEID" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="SOYAD" ColumnName="SOYAD" />
+                <ScalarProperty Name="TCKIMLIK" ColumnName="TCKIMLIK" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spAboneKaydet" FunctionName="ELEKTRIKModel.Store.spAboneKaydet" />
+          <FunctionImportMapping FunctionImportName="spTuketimDoldur" FunctionName="ELEKTRIKModel.Store.spTuketimDoldur">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ELEKTRIKModel.spTuketimDoldur_Result">
+                <ScalarProperty Name="SAYACID" ColumnName="SAYACID" />
+                <ScalarProperty Name="MARKA" ColumnName="MARKA" />
+                <ScalarProperty Name="SERI" ColumnName="SERI" />
+                <ScalarProperty Name="NUMARA" ColumnName="NUMARA" />
+                <ScalarProperty Name="TARIH" ColumnName="TARIH" />
+                <ScalarProperty Name="ENDEKS" ColumnName="ENDEKS" />
+                <ScalarProperty Name="TUKETIM" ColumnName="TUKETIM" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spTuketimEkle" FunctionName="ELEKTRIKModel.Store.spTuketimEkle" />
+          <FunctionImportMapping FunctionImportName="spTuketimHesapla" FunctionName="ELEKTRIKModel.Store.spTuketimHesapla" />
+          <FunctionImportMapping FunctionImportName="spAboneAra" FunctionName="ELEKTRIKModel.Store.spAboneAra">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ELEKTRIKModel.spAboneAra_Result">
+                <ScalarProperty Name="ABONEID" ColumnName="ABONEID" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="SOYAD" ColumnName="SOYAD" />
+                <ScalarProperty Name="TCKIMLIK" ColumnName="TCKIMLIK" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ABONE">
+            <EntityTypeMapping TypeName="ELEKTRIKModel.ABONE">
+              <MappingFragment StoreEntitySet="ABONE">
+                <ScalarProperty Name="TCKIMLIK" ColumnName="TCKIMLIK" />
+                <ScalarProperty Name="SOYAD" ColumnName="SOYAD" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="ABONEID" ColumnName="ABONEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SAYAC">
+            <EntityTypeMapping TypeName="ELEKTRIKModel.SAYAC">
+              <MappingFragment StoreEntitySet="SAYAC">
+                <ScalarProperty Name="NUMARA" ColumnName="NUMARA" />
+                <ScalarProperty Name="SERI" ColumnName="SERI" />
+                <ScalarProperty Name="MARKA" ColumnName="MARKA" />
+                <ScalarProperty Name="ABONENO" ColumnName="ABONENO" />
+                <ScalarProperty Name="SAYACID" ColumnName="SAYACID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUKETIM">
+            <EntityTypeMapping TypeName="ELEKTRIKModel.TUKETIM">
+              <MappingFragment StoreEntitySet="TUKETIM">
+                <ScalarProperty Name="TUKETIM1" ColumnName="TUKETIM" />
+                <ScalarProperty Name="ENDEKS" ColumnName="ENDEKS" />
+                <ScalarProperty Name="TARIH" ColumnName="TARIH" />
+                <ScalarProperty Name="SAYACNO" ColumnName="SAYACNO" />
+                <ScalarProperty Name="TUKETIMID" ColumnName="TUKETIMID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
